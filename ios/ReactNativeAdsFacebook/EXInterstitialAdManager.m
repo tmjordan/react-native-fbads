@@ -55,7 +55,9 @@ RCT_EXPORT_METHOD(
   _interstitialAd = [[FBInterstitialAd alloc] initWithPlacementID:placementId];
   _interstitialAd.delegate = self;
 //  [EXUtil performSynchronouslyOnMainThread:^{
-    [self->_interstitialAd loadAd];
+  dispatch_async(dispatch_get_main_queue(), ^{
+      [self->_interstitialAd loadAd];
+  });
 //  }];
 }
 
