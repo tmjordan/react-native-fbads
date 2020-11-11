@@ -53,5 +53,11 @@ export default {
    */
   setUrlPrefix(urlPrefix: string) {
     CTKAdSettingsManager.setUrlPrefix(urlPrefix);
+  },
+  /**
+   * Sets advertiser tracking enabled
+   */
+  setAdvertiserTrackingEnabled(advertiserTrackingEnabled: string) {
+    CTKAdSettingsManager.setAdvertiserTrackingEnabled(advertiserTrackingEnabled);
   }
 };
