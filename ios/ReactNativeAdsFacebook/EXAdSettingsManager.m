@@ -26,6 +26,7 @@ RCT_ENUM_CONVERTER(FBAdLogLevel, (@{
 @property (nonatomic, strong) NSString *urlPrefix;
 @property (nonatomic) FBAdLogLevel logLevel;
 @property (nonatomic, strong) NSMutableArray<NSString*> *testDevices;
+@property (nonatomic) BOOL advertiserTrackingEnabled;
 
 @end
 
@@ -100,6 +101,12 @@ RCT_EXPORT_METHOD(setUrlPrefix:(NSString *)urlPrefix)
   _urlPrefix = urlPrefix;
 }
 
+RCT_EXPORT_METHOD(setAdvertiserTrackingEnabled:(BOOL)advertiserTrackingEnabled)
+{
+  [FBAdSettings setAdvertiserTrackingEnabled:advertiserTrackingEnabled];
+  _advertiserTrackingEnabled = advertiserTrackingEnabled;
+}
+
 - (void)bridgeDidForeground:(NSNotification *)notification
 {
   [FBAdSettings setIsChildDirected:_isChildDirected];
@@ -107,6 +114,7 @@ RCT_EXPORT_METHOD(setUrlPrefix:(NSString *)urlPrefix)
   [FBAdSettings setUrlPrefix:_urlPrefix];
   [FBAdSettings setLogLevel:_logLevel];
   [FBAdSettings addTestDevices:_testDevices];
+  [FBAdSettings setAdvertiserTrackingEnabled:_advertiserTrackingEnabled];
 }
 
 - (void)bridgeDidBackground:(NSNotification *)notification
@@ -116,6 +124,7 @@ RCT_EXPORT_METHOD(setUrlPrefix:(NSString *)urlPrefix)
   [FBAdSettings setUrlPrefix:@""];
   [FBAdSettings setLogLevel:FBAdLogLevelLog];
   [FBAdSettings clearTestDevices];
+  [FBAdSettings setAdvertiserTrackingEnabled:NO];
 }
 
 - (void)dealloc
