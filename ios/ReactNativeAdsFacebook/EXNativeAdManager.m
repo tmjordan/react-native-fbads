@@ -114,10 +114,11 @@ RCT_EXPORT_METHOD(init:(NSString *)placementId withAdsToRequest:(nonnull NSNumbe
   _myAdChoiceViewPlacementId = placementId;
     
   [adsManager setDelegate:self];
-
-  [adsManager loadAds];
-    
-  [_adsManagers setValue:adsManager forKey:placementId];
+  
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [adsManager loadAds];
+    [_adsManagers setValue:adsManager forKey:placementId];
+  });
 }
 
 RCT_EXPORT_METHOD(setMediaCachePolicy:(NSString*)placementId cachePolicy:(FBNativeAdsCachePolicy)cachePolicy)
